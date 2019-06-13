@@ -71,3 +71,17 @@ self.present(ViewController(), animated: true, completion: nil)
     }
 
 ```
+
+## Get size of text based on font's type & size
+
+```
+    let word = "word"
+    let font = UIFont(name: "Helvetica", size: 30)
+    let size = word.size(withAttributes:[.font: font])
+    // size.width, size.height
+
+    // OR
+    let size = text.size(withAttributes:[.font: UIFont.systemFont(ofSize:18.0)])
+
+
+```
