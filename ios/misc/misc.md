@@ -155,7 +155,7 @@ pod deintegrate
 ```
 
 
-## Create a button + on 'click' event
+## Create a button & on 'click' event
 
 ```
 // Declare the button
@@ -176,6 +176,8 @@ requestButton.addTarget(self, action: #selector(onNewRequest), for: .touchUpInsi
 
 ## How to test app on iPhone
 
+src: https://codewithchris.com/deploy-your-app-on-an-iphone/
+
 ### Connect you iPhone to the laptop
 
 Then, go to Xcode -> Preferences... -> Accounts -> click on '+' (bottom, left)
@@ -187,3 +189,132 @@ then, click on 'Manage Certificates' -> click on '+' -> select 'iOS Development'
 then, click on Project's root (config) -> go to Signing -> Team -> select '... Personal Team'
 
 then, select you phone from the top bar/menu
+
++ IMPORTANT
+
+https://stackoverflow.com/questions/46774005/codesign-wants-to-access-key-access-in-your-keychain-i-put-in-my-login-passwo/51201660
+
+when it asks for password, use you User's password and click on 'Always Allow'
+
+-> When you connect your phone, make sure it's unlocked
+
+in Xcode, go to: Window -> Devices and Simulators and wait for the phone to be recognized
+
+
+### misc troubleshooting
+
+src: https://stackoverflow.com/questions/2160299/error-the-service-is-invalid
+
+-> if it does not work, with the error "The service is invalid - Please check your setup and try again" or "PhaseScriptExecution failed with a nonzero exit code"
+
+1. Try to delete the folder(s) related to your app at "~/Library/Developer/Xcode/DerivedData/YOUR_PROJECT-xyz..."
+
+2. Run 'pod deintegrate' followed by 'pod intall'
+
+3. in Xcode, go to Product -> Clean Build Folder
+
+4. Restart Xcode
+
+5. Restart iPhone
+
+6. Delete the .app from iOS device/IPhone
+
+-> When you connect your phone, make sure it's unlocked
+
+in Xcode, go to: Window -> Devices and Simulators and wait for the phone to be recognized
+
+-> trust app developer:
+
+Go to: Settings -> general -> device management -> developer app -> click on "Trust ID"
+
+-> Reset "Trust this computer"
+
+Go to: Settings -> General -> Reset -> Reset Location and Privacy
+
+## Draw rectangle on image
+
+```
+func drawRectangleOnImage(image: UIImage, secondRect: Bool = false) -> UIImage {
+    let imageSize = image.size
+    let scale: CGFloat = 0
+    UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
+    let context = UIGraphicsGetCurrentContext()
+
+    image.draw(at: CGPoint.zero)
+
+    var rectangle = CGRect(x: 0, y: 400, width: imageSize.width, height: imageSize.height)
+    if (secondRect) {
+      rectangle = CGRect(x: 2500, y: 0, width: imageSize.width, height: imageSize.height)
+    }
+
+    context?.setFillColor(UIColor.black.cgColor)
+    context?.addRect(rectangle)
+    context?.drawPath(using: .fill)
+
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
+}
+```
+
+
+## ImagePicker Overlay
+
+```
+let imagePicker = UIImagePickerController()
+imagePicker.delegate = self
+imagePicker.sourceType = .camera
+imagePicker.mediaTypes = [kUTTypeImage as String]
+
+          let overlay = UIView()
+          let frameA = imagePicker.cameraOverlayView!.frame
+          overlay.frame = CGRect(x: 0, y: 0, width: frameA.width, height: frameA.height-100)
+
+          let topMask = UILabel()
+          overlay.addSubview(topMask)
+          topMask.frame = CGRect(x: 0, y: 0, width: overlay.frame.width, height: 300)
+          topMask.backgroundColor = .black
+
+          let bottomMask = UILabel()
+          overlay.addSubview(bottomMask)
+          bottomMask.translatesAutoresizingMaskIntoConstraints = false
+          bottomMask.topAnchor.constraint(equalTo: overlay.topAnchor, constant: 200).isActive = true
+          bottomMask.bottomAnchor.constraint(equalTo: overlay.bottomAnchor, constant: 0).isActive = true
+          bottomMask.leadingAnchor.constraint(equalTo: overlay.leadingAnchor, constant: 0).isActive = true
+          bottomMask.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: 0).isActive = true
+//          bottomMask.frame = CGRect(x: 0, y: 400, width: overlay.frame.width, height: 100)
+          bottomMask.backgroundColor = .black
+
+          imagePicker.cameraOverlayView = overlay
+```
+
+## set ScrollView scroll position
+
+```
+scrollView.setContentOffset(CGPoint(x: 0, y: 800), animated: true)
+```
+
+## WebView
+
+```
+let webView = WKWebView()
+
+let url = URL(string: "https://www.google.ro/search?q=weather+cluj")!
+webView.load(URLRequest(url: url))
+
+webView.navigationDelegate = self
+
+.... // WKNavigationDelegate delegate
+
+func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    print("did start")
+    self.timeOut = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: Selector(("cancelWeb")), userInfo: nil, repeats: false)
+}
+
+func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    print("did finish")
+    self.timeOut.invalidate()
+}
+
+
+```
