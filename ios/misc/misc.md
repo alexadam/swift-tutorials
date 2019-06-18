@@ -105,3 +105,85 @@ self.present(ViewController(), animated: true, completion: nil)
     border.frame = CGRect(x: contentView.frame.minX, y: contentView.frame.maxY, width: contentView.frame.width, height: 3)
     label.layer.addSublayer(border)
 ```
+
+## Use CocoaPods
+
+### How to install it: https://cocoapods.org/
+
+### Go to the project folder and execute this command in the terminal:
+
+```
+pod init
+```
+
+### Add Dependencies
+
+```
+pod 'Alamofire', '~> 5.0.0-beta.5'
+pod 'SwiftSoup'
+```
+
+in the Podfile Podfile
+
+```
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ios-web-scraper' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ios-web-scraper
+  pod 'Alamofire', '~> 5.0.0-beta.5'
+  pod 'SwiftSoup'
+
+end
+```
+
+### Install Dependencies
+
+```
+pod install
+```
+
+Then, open the **....xcworkspace** file generated in the project directory
+
+### Uninstall Dependencies:
+
+```
+pod deintegrate
+```
+
+
+## Create a button + on 'click' event
+
+```
+// Declare the button
+let requestButton = UIButton()
+view.addSubview(requestButton)
+requestButton.setTitle("request", for: .normal)
+requestButton.backgroundColor = .blue
+
+requestButton.addTarget(self, action: #selector(onNewRequest), for: .touchUpInside)
+
+// create handler function
+
+@objc func onNewRequest(_ sender: AnyObject?) {
+
+}
+
+```
+
+## How to test app on iPhone
+
+### Connect you iPhone to the laptop
+
+Then, go to Xcode -> Preferences... -> Accounts -> click on '+' (bottom, left)
+
+then, select 'Apple ID' -> use your apple id...
+
+then, click on 'Manage Certificates' -> click on '+' -> select 'iOS Development'
+
+then, click on Project's root (config) -> go to Signing -> Team -> select '... Personal Team'
+
+then, select you phone from the top bar/menu
