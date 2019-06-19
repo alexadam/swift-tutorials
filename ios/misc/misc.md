@@ -318,3 +318,87 @@ func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 
 
 ```
+
+
+## Text field with Int/Float numbers input
+
+```
+tmpNrInput.keyboardType = .asciiCapableNumberPad
+tmpNrInput.keyboardType = .decimalPad
+```
+
+
+## Modal Pop-up
+
+```
+class ModalPopUp: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        createLayout()
+    }
+
+    func createLayout() {
+
+       view.backgroundColor = .init(displayP3Red: 0, green: 0, blue: 0, alpha: 0)
+
+       // close if tap on background
+       let bgView = UIView()
+       view.addSubview(bgView)
+       bgView.frame = view.frame
+       bgView.backgroundColor = .init(displayP3Red: 0, green: 0, blue: 0, alpha: 0.5)
+       let gesture = UITapGestureRecognizer(target: self, action: #selector(closePopUp))
+       bgView.addGestureRecognizer(gesture)
+
+       /// add more controls
+   }
+
+   @objc func closePopUp(_ sender: UIButton) {
+       //        self.present(ViewController(), animated: true, completion: nil)
+       self.dismiss(animated: true, completion: nil)
+   }
+}
+
+////
+// how to present it
+
+let svc = ModalPopUp()
+svc.modalPresentationStyle = .overCurrentContext
+self.present(svc, animated: true, completion: nil)
+```
+
+## Custom Picker
+
+```
+class IntNrPicker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    let pickerView = UIPickerView()
+    let pickerData = Array(1...100)
+
+    override func addContent() {
+        pickerView.delegate = self
+        pickerView.dataSource = self
+
+        popUpView.addSubview(pickerView)
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerView.topAnchor.constraint(equalTo: tmpNrInput.bottomAnchor, constant: 10).isActive = true
+        pickerView.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor, constant: 10).isActive = true
+        pickerView.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor, constant: -10).isActive = true
+        pickerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(pickerData[row])
+    }
+
+}
+
+```
