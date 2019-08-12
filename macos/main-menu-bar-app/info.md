@@ -2,6 +2,10 @@
 
 ## Simple Menu app
 
+in **info.plist**, type “Application is agent (UIElement)” and set the value to YES.
+
+then
+
 in **AppDelegate.swift**:
 
 ```
