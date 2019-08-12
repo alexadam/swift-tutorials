@@ -39,6 +39,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 ![i1][img1]
 
+### With guards
+
+```
+func applicationDidFinishLaunching(_ aNotification: Notification) {
+    statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+
+    guard let statusBarItem = statusBarItem else {
+        print("Error! Status bar item cannot be created")
+        NSApp.terminate(nil)
+        return
+    }
+
+    guard let menuButton = statusBarItem.button else {
+        print("Error! Status bar item cannot be created")
+        NSApp.terminate(nil)
+        return
+    }
+
+    menuButton.title = "\u{1F551}"
+
+    statusBarItem.menu = NSMenu()
+
+    let menuItem = NSMenuItem(title: "Menu...", action: #selector(showMenu), keyEquivalent: "")
+
+    statusBarItem.menu?.addItem(menuItem)
+
+}
+```
+
 
 ## Dynamically add icons (actions) to menu bar
 
