@@ -32,6 +32,52 @@ if ok {
 }
 ```
 
+## Show User Notification
+
+```
+// global / class var
+var notificationDelegate = NotificationDelegate()
+
+...
+
+func showNotification() {
+    ....
+let notification = NSUserNotification()
+notification.identifier = NSUUID().uuidString
+notification.title = currentTimerRunning!.name
+notification.subtitle = currentTimerIntervalRunning!.name
+//        notification.informativeText = "This is a test"
+notification.soundName = NSUserNotificationDefaultSoundName
+notification.hasActionButton = false // just display 'Close' button
+//        notification.hasActionButton = true
+//        notification.actionButtonTitle = "Ok"
+
+
+NSUserNotificationCenter.default.delegate = notificationDelegate
+NSUserNotificationCenter.default.deliver(notification)
+
+}
+
+...
+
+class NotificationDelegate: NSObject, NSUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+
+    // for custom actions / buttons
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+    }
+}
+
+```
+
+In **Info.plist**
+
+set Key "NSUserNotificationAlertStyle" to Value "alert" -> to display buttons
+
+All options: banner, alert, or none.
+
 ## Show Popover
 
 ```
