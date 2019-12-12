@@ -402,3 +402,13 @@ class IntNrPicker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
 }
 
 ```
+
+## Disable screen rotation
+
+In AppDelegate:
+
+```
+func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    return .portrait
+}
+```
