@@ -146,7 +146,28 @@ class TaskController {
 }
 ```
 
+# Pipes
 
+ - pipes operate on the arguments to be processed by the route handler, just before the handler is called
+ - pipes can perform data validation and data transformation
+ - can return data - either original or modified - which will be passed to the route handler
+ - can throw exceptions
+ - handler-level pipes; 
+   - parameter level: @Body('id', SomePipe) id: string
+   - global pipes: app.useGlobalPipe()
+  
+Custom Pipes:
+ - are classes annotated with @Injectable
+ - must implement PipeTransform generic interface -> must have a **transform** function that process arguments & has 2 inputs: value & metadata 
+
+
+## Useful: ClassValidator package
+
+https://github.com/typestack/class-validator
+
+```
+yarn add class-validator
+```
 
 
 # Model
