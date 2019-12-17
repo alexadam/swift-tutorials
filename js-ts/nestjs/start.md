@@ -166,9 +166,10 @@ Custom Pipes:
 https://github.com/typestack/class-validator
 
 ```
-yarn add class-validator
+yarn add class-validator class-transformer
 ```
 
+NOTE: class-transformer is needed by class-validator
 
 # Model
 
