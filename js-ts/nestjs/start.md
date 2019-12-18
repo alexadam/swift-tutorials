@@ -20,11 +20,15 @@ nest new <project-name>
 ## Cleanup
 
 Go to **src/** and delete: 
+
 *app.controller.spec.ts* 
+
 *app.controller.ts* 
+
 *app.service.ts* 
 
-Open **app.module.ts** and remove:
+
+Then, open **app.module.ts** and remove:
 
 ```
 controllers: [AppController],
