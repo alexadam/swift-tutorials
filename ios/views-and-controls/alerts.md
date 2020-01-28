@@ -1,8 +1,16 @@
 # Alerts
 
-## Display normal Alerts and Alerts as Action Sheets
+## Display normal Alerts & Alerts as Action Sheets & Alerts with input
 
 ```
+//
+//  Alerts.swift
+//  all-views-ios
+//
+//  Created by Alex Adam on 28/01/2020.
+//  Copyright © 2020 Test. All rights reserved.
+//
+
 import UIKit
 
 class AlertsView: UIViewController {
@@ -27,6 +35,14 @@ class AlertsView: UIViewController {
         button2.backgroundColor = .white
         button2.frame = CGRect(x: 100, y: 150, width: 250, height: 30)
         button2.addTarget(self, action: #selector(displayAlertsAsActionSheet), for: .touchDown)
+        
+        let button3 = UIButton()
+        view.addSubview(button3)
+        button3.setTitle("Display Alert with input", for: .normal)
+        button3.setTitleColor(.black, for: .normal)
+        button3.backgroundColor = .white
+        button3.frame = CGRect(x: 100, y: 200, width: 250, height: 30)
+        button3.addTarget(self, action: #selector(displayAlertsInput), for: .touchDown)
         
         
         let close = UIButton()
@@ -77,6 +93,22 @@ class AlertsView: UIViewController {
         alertController.addAction(action1)
         alertController.addAction(action2)
         alertController.addAction(action3)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func displayAlertsInput() {
+        let alertController = UIAlertController(title: "Add new tag", message: nil, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Add", style: .default) { (_) in
+            if let txtField = alertController.textFields?.first, let text = txtField.text {
+                print("input:" + text)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Tag"
+        }
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
     
