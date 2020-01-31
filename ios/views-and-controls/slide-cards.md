@@ -1,5 +1,10 @@
 # Slide Cards - expand / collapse like in AppStore (WIP)
 
+src: https://medium.com/@aunnnn/making-app-store-today-ios-11-custom-transition-part-1-presentation-9e4ef99e75d3
+
++ https://github.com/aunnnn/AppStoreiOS11InteractiveTransition/tree/master/AppStoreInteractiveTransition
+
+
 
 ```
 
